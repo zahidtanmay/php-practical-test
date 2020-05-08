@@ -1,0 +1,5 @@
+SELECT cat.Name as 'Category Name', COUNT(*) as 'Total Items'
+FROM category as cat
+RIGHT JOIN Item_category_relations as icr ON cat.id = icr.categoryId
+GROUP BY icr.categoryId
+ORDER BY COUNT(*) DESC
