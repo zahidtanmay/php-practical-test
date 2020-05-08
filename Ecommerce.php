@@ -53,11 +53,10 @@ class Ecommerce
         $statement = $connection->query($childCategoryQuery);
         $child = $statement->fetchAll();
         if (count($child) > 0) {
-            $items = 0;
             $level++;
             foreach ($child as $i => $c){
                 $child[$i]['child'.$level] = $this->getChildCategory($c['Id'], $level);
-                $child[$i]['items'] = $items + $this->getItemCount($c['Id']);
+                $child[$i]['items'] = $this->getItemCount($c['Id']);
             }
         }
 
@@ -73,4 +72,3 @@ class Ecommerce
         return $count->rowCount();
     }
 }
-
