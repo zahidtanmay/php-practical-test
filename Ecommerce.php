@@ -29,6 +29,7 @@ class Ecommerce
         $connection = $this->connection;
         $query = "SELECT cat.Name, COUNT(*) as 'count' FROM category as cat JOIN Item_category_relations as icr ON cat.id = icr.categoryId GROUP BY icr.categoryId ORDER BY COUNT(*) DESC";
         $statement = $connection->query($query);
+        $this->connection = null;
         return $statement->fetchAll();
     }
 
@@ -42,7 +43,7 @@ class Ecommerce
         {
             $parentCategories[$index]['child'] = $this->getChildCategory($value['Id'], 0);
         }
-
+        $this->connection = null;
         return $parentCategories;
     }
 

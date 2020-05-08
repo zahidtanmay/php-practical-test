@@ -1,5 +1,8 @@
 <!DOCTYPE html>
 <html>
+<head>
+    <title>Practical Test</title>
+</head>
 <body>
 
 <h1>PHP Practical Test</h1>

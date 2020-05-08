@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <title>Task 2</title>
 </head>
 <body>
 
@@ -36,11 +37,12 @@ function printList($data, $level)
 
         foreach ($dlist as $d)
         {
-            $space = "-";
+            $space = "&nbsp;";
             for($i = 0; $i<$level*2; $i++){
                 $space .= $space;
             }
-            echo '<ul>' .$space. $d['Name'] .' ('.$d['items'].') </ul>';
+            $itemCount = $d['items'] > 0 ? ' ('.$d['items'].')' : '';
+            echo '<ul>' . $space . '-' . $d['Name'] . $itemCount . '</ul>';
             if (is_array($d['child'.$level]))
             {
                 printList($d['child'.$level], $level);

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <title>Task 1</title>
 <style>
 table {
     font-family: arial, sans-serif;
