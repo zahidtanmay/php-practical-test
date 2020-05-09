@@ -27,7 +27,7 @@ class Ecommerce
     public function getTaskOne()
     {
         $connection = $this->connection;
-        $query = "SELECT cat.Name, COUNT(*) as 'count' FROM category as cat JOIN Item_category_relations as icr ON cat.id = icr.categoryId GROUP BY icr.categoryId ORDER BY COUNT(*) DESC";
+        $query = "SELECT cat.Name, COUNT(icr.categoryId) as 'count' FROM category as cat LEFT JOIN Item_category_relations as icr ON cat.id = icr.categoryId GROUP BY cat.id, icr.categoryId ORDER BY COUNT(icr.categoryId) DESC";
         $statement = $connection->query($query);
         $this->connection = null;
         return $statement->fetchAll();
