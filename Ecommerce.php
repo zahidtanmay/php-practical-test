@@ -39,15 +39,19 @@ class Ecommerce
         $parentCategoryQuery = "SELECT * FROM category WHERE id NOT IN (SELECT categoryId FROM catetory_relations)";
         $statement = $connection->query($parentCategoryQuery);
         $parentCategories = $statement->fetchAll();
+        $categoryCount = 0;
         foreach ($parentCategories as $index => $value)
         {
-            $parentCategories[$index]['child'] = $this->getChildCategory($value['Id'], 0);
+            $count = 0;
+            $parentCategories[$index]['child'] = $this->getChildCategory($value['Id'], 0, $count);
+            $parentCategories[$index]['count'] = $count;
+            $categoryCount += $count;
         }
         $this->connection = null;
         return $parentCategories;
     }
 
-    private function getChildCategory($id, $level)
+    private function getChildCategory($id, $level, &$count)
     {
         $connection = $this->connection;
         $childCategoryQuery = "SELECT cat.* FROM category as cat JOIN catetory_relations as car ON cat.Id = car.categoryId WHERE car.ParentcategoryId = $id";
@@ -56,8 +60,13 @@ class Ecommerce
         if (count($child) > 0) {
             $level++;
             foreach ($child as $i => $c){
-                $child[$i]['child'.$level] = $this->getChildCategory($c['Id'], $level);
+                $agCount = 0;
+                $child[$i]['child'.$level] = $this->getChildCategory($c['Id'], $level, $agCount);
                 $child[$i]['items'] = $this->getItemCount($c['Id']);
+                $agCount += $child[$i]['items'];
+                $count += $agCount;
+                $child[$i]['count'] = $count;
+                $child[$i]['agcount'] = $agCount;
             }
         }
 
